@@ -116,6 +116,54 @@
                 <div id="home-lesson-catalog" class="home-lesson-catalog flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-6 pb-8"></div>
             </section>
 
+            <section class="study-shortcuts max-w-7xl mx-auto px-4 py-10">
+                <div class="study-shortcuts-heading">
+                    <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">Study tools. <span class="text-gray-500 font-normal">Keep Python essentials close.</span></h2>
+                    <div class="study-shortcuts-controls" aria-label="Study Guide shortcuts">
+                        <button type="button" onclick="scrollStudyShortcuts(-1)" aria-label="Previous study guide shortcut" title="Previous" class="study-shortcuts-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+                        </button>
+                        <button type="button" onclick="scrollStudyShortcuts(1)" aria-label="Next study guide shortcut" title="Next" class="study-shortcuts-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div id="study-shortcuts-track" class="study-shortcuts-track hide-scrollbar" aria-label="Study Guide shortcuts">
+                    <article role="button" tabindex="0" onclick="openStudyGuideTopic('study-basics')" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="study-shortcut-card study-shortcut-card--blue">
+                        <p>Quick reference</p><h3>Study Guide</h3><span>Review the essentials</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M4 19a2.5 2.5 0 0 1 2.5-2.5H20"/><path d="M8 7h8M8 11h6"/></svg>
+                    </article>
+                    <article role="button" tabindex="0" onclick="openStudyGuideTopic('study-syntax')" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="study-shortcut-card study-shortcut-card--orange">
+                        <p>Syntax at a glance</p><h3>Python Patterns</h3><span>Find the right tool</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 9 4 13l4 4M16 9l4 4-4 4M14 5l-4 16"/></svg>
+                    </article>
+                    <article role="button" tabindex="0" onclick="openStudyGuideTopic('study-debugging')" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="study-shortcut-card study-shortcut-card--dark">
+                        <p>Debug smarter</p><h3>Error Guide</h3><span>Understand common errors</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4m0 3h.01"/><path d="M10.3 4.7 2.7 18a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3L13.7 4.7a2 2 0 0 0-3.4 0Z"/></svg>
+                    </article>
+                    <article role="button" tabindex="0" onclick="openStudyGuideTopic('study-variables')" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="study-shortcut-card study-shortcut-card--blue">
+                        <p>Start with values</p><h3>Variables</h3><span>Store and use information</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5M8 17h8"/></svg>
+                    </article>
+                    <article role="button" tabindex="0" onclick="openStudyGuideTopic('study-conditions')" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="study-shortcut-card study-shortcut-card--orange">
+                        <p>Make decisions</p><h3>Conditions</h3><span>Choose what runs next</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 7h14M5 17h14"/><circle cx="12" cy="7" r="2"/><circle cx="12" cy="17" r="2"/></svg>
+                    </article>
+                    <article role="button" tabindex="0" onclick="openStudyGuideTopic('study-loops')" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="study-shortcut-card study-shortcut-card--dark">
+                        <p>Repeat work</p><h3>Loops</h3><span>Run code with control</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2v5h-5"/><path d="M7 22v-5h5"/><path d="M20.5 9A9 9 0 0 0 6.1 5.1L2 7"/><path d="M3.5 15A9 9 0 0 0 17.9 18.9L22 17"/></svg>
+                    </article>
+                    <article role="button" tabindex="0" onclick="openStudyGuideTopic('study-functions')" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="study-shortcut-card study-shortcut-card--blue">
+                        <p>Reuse logic</p><h3>Functions</h3><span>Name useful code blocks</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6 3 12l6 6M15 6l6 6-6 6"/></svg>
+                    </article>
+                    <article role="button" tabindex="0" onclick="openStudyGuideTopic('study-collections')" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="study-shortcut-card study-shortcut-card--orange">
+                        <p>Organize data</p><h3>Collections</h3><span>Lists and dictionaries</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7c0-2 3.6-4 8-4s8 2 8 4-3.6 4-8 4-8-2-8-4Z"/><path d="M4 7v5c0 2 3.6 4 8 4s8-2 8-4V7M4 12v5c0 2 3.6 4 8 4s8-2 8-4v-5"/></svg>
+                    </article>
+                </div>
+            </section>
+
             <section class="python-intro max-w-6xl mx-auto px-4 py-10">
                 <div class="python-intro-video" aria-label="Python introduction video coming soon">
                     <div class="python-video-screen">
@@ -187,7 +235,7 @@
                 </section>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <article class="apple-card p-7 bg-white border border-gray-100">
+                    <article id="study-basics" class="apple-card scroll-mt-20 p-7 bg-white border border-gray-100">
                         <p class="text-[var(--apple-orange)] text-xs font-semibold tracking-widest uppercase">01 - Basics</p>
                         <h2 class="text-2xl font-bold mt-3 mb-3">Print and variables</h2>
                         <p class="text-gray-500 text-sm mb-5">Use <code>print()</code> to show a value and variables to store information.</p>
@@ -195,7 +243,7 @@
 print(name)</code></pre>
                     </article>
 
-                    <article class="apple-card p-7 bg-[#f3f7ff] border border-blue-100">
+                    <article id="study-conditions" class="apple-card scroll-mt-20 p-7 bg-[#f3f7ff] border border-blue-100">
                         <p class="text-[var(--apple-blue)] text-xs font-semibold tracking-widest uppercase">02 - Decisions</p>
                         <h2 class="text-2xl font-bold mt-3 mb-3">Conditions</h2>
                         <p class="text-gray-500 text-sm mb-5">Let your program choose what to do with <code>if</code>, <code>elif</code>, and <code>else</code>.</p>
@@ -204,7 +252,7 @@ if score &gt;= 60:
     print("Pass")</code></pre>
                     </article>
 
-                    <article class="apple-card p-7 bg-white border border-gray-100">
+                    <article id="study-loops" class="apple-card scroll-mt-20 p-7 bg-white border border-gray-100">
                         <p class="text-[var(--apple-orange)] text-xs font-semibold tracking-widest uppercase">03 - Repetition</p>
                         <h2 class="text-2xl font-bold mt-3 mb-3">Loops</h2>
                         <p class="text-gray-500 text-sm mb-5">Repeat an action with <code>for</code> and a range of values.</p>
@@ -212,7 +260,7 @@ if score &gt;= 60:
     print(number)</code></pre>
                     </article>
 
-                    <article class="apple-card p-7 bg-black text-white">
+                    <article id="study-functions" class="apple-card scroll-mt-20 p-7 bg-black text-white">
                         <p class="text-gray-400 text-xs font-semibold tracking-widest uppercase">04 - Reuse</p>
                         <h2 class="text-2xl font-bold mt-3 mb-3">Functions</h2>
                         <p class="text-gray-300 text-sm mb-5">Give a reusable name to a block of logic with <code>def</code>.</p>
@@ -222,7 +270,7 @@ if score &gt;= 60:
 greet("Student")</code></pre>
                     </article>
 
-                    <article class="apple-card p-7 bg-[#fff6ed] border border-orange-100">
+                    <article id="study-collections" class="apple-card scroll-mt-20 p-7 bg-[#fff6ed] border border-orange-100">
                         <p class="text-[var(--apple-orange)] text-xs font-semibold tracking-widest uppercase">05 - Collections</p>
                         <h2 class="text-2xl font-bold mt-3 mb-3">Lists and dictionaries</h2>
                         <p class="text-gray-500 text-sm mb-5">Store multiple values in lists or organize them with readable keys.</p>
@@ -231,7 +279,7 @@ user = {"name": "Ada"}
 print(user["name"])</code></pre>
                     </article>
 
-                    <article class="apple-card p-7 bg-white border border-gray-100">
+                    <article id="study-debugging" class="apple-card scroll-mt-20 p-7 bg-white border border-gray-100">
                         <p class="text-gray-500 text-xs font-semibold tracking-widest uppercase">06 - Debugging</p>
                         <h2 class="text-2xl font-bold mt-3 mb-3">Read the error</h2>
                         <ul class="space-y-3 text-sm text-gray-600">
@@ -241,9 +289,124 @@ print(user["name"])</code></pre>
                             <li><strong class="text-gray-900">IndentationError</strong> - spacing is inconsistent.</li>
                         </ul>
                     </article>
+
+                    <article id="study-variables" class="apple-card scroll-mt-20 p-7 bg-[#f3f7ff] border border-blue-100">
+                        <p class="text-[var(--apple-blue)] text-xs font-semibold tracking-widest uppercase">07 - Objects</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-3">Classes</h2>
+                        <p class="text-gray-500 text-sm mb-5">A class groups related data and behavior into a reusable blueprint.</p>
+                        <pre class="bg-white text-gray-900 rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto border border-blue-100"><code>class Student:
+    name = "Mia"
+
+print(Student.name)</code></pre>
+                    </article>
+
+                    <article class="apple-card p-7 bg-black text-white">
+                        <p class="text-gray-400 text-xs font-semibold tracking-widest uppercase">08 - Reuse</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-3">Modules</h2>
+                        <p class="text-gray-300 text-sm mb-5">Import a module when you need tools that live in another file or library.</p>
+                        <pre class="bg-white/10 text-white rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto"><code>import math
+
+print(math.sqrt(16))</code></pre>
+                    </article>
+
+                    <article class="apple-card p-7 bg-[#fff6ed] border border-orange-100">
+                        <p class="text-[var(--apple-orange)] text-xs font-semibold tracking-widest uppercase">09 - Text</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-3">Strings</h2>
+                        <p class="text-gray-500 text-sm mb-5">Use quotes for text and <code>+</code> or f-strings to combine values.</p>
+                        <pre class="bg-white text-gray-900 rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto border border-orange-100"><code>name = "Alya"
+print(f"Hello, {name}")</code></pre>
+                    </article>
+
+                    <article class="apple-card p-7 bg-white border border-gray-100">
+                        <p class="text-gray-500 text-xs font-semibold tracking-widest uppercase">10 - Data</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-3">Useful list methods</h2>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li><strong class="text-gray-900">append()</strong> - add one item to the end.</li>
+                            <li><strong class="text-gray-900">remove()</strong> - delete a matching item.</li>
+                            <li><strong class="text-gray-900">len()</strong> - count the items.</li>
+                            <li><strong class="text-gray-900">sort()</strong> - order the items.</li>
+                        </ul>
+                    </article>
+
+                    <article class="apple-card p-7 bg-[#f3f7ff] border border-blue-100">
+                        <p class="text-[var(--apple-blue)] text-xs font-semibold tracking-widest uppercase">11 - Safety</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-3">Try and except</h2>
+                        <p class="text-gray-500 text-sm mb-5">Handle expected errors without stopping the whole program.</p>
+                        <pre class="bg-white text-gray-900 rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto border border-blue-100"><code>try:
+    value = int("12")
+except ValueError:
+    print("Invalid")</code></pre>
+                    </article>
+
+                    <article class="apple-card p-7 bg-[#fff6ed] border border-orange-100">
+                        <p class="text-[var(--apple-orange)] text-xs font-semibold tracking-widest uppercase">12 - Build</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-3">Mini project plan</h2>
+                        <ol class="space-y-3 text-sm text-gray-600">
+                            <li><strong class="text-gray-900">1.</strong> Decide the program's input and output.</li>
+                            <li><strong class="text-gray-900">2.</strong> Break the work into small functions.</li>
+                            <li><strong class="text-gray-900">3.</strong> Test each part before combining it.</li>
+                            <li><strong class="text-gray-900">4.</strong> Improve names and error handling.</li>
+                        </ol>
+                    </article>
+
+                    <article class="apple-card p-7 bg-white border border-gray-100">
+                        <p class="text-gray-500 text-xs font-semibold tracking-widest uppercase">13 - Values</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-3">Data types</h2>
+                        <p class="text-gray-500 text-sm mb-5">Python chooses a type from the value you assign to a variable.</p>
+                        <pre class="bg-black text-white rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto"><code>age = 18        # int
+price = 12.5     # float
+name = "Mia"    # str
+ready = True     # bool</code></pre>
+                    </article>
+
+                    <article class="apple-card p-7 bg-[#f3f7ff] border border-blue-100">
+                        <p class="text-[var(--apple-blue)] text-xs font-semibold tracking-widest uppercase">14 - Input</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-3">Ask the user</h2>
+                        <p class="text-gray-500 text-sm mb-5"><code>input()</code> returns text. Convert it with <code>int()</code> when you need a number.</p>
+                        <pre class="bg-white text-gray-900 rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto border border-blue-100"><code>name = input("Name: ")
+age = int(input("Age: "))
+print(name, age)</code></pre>
+                    </article>
+
+                    <article class="apple-card p-7 bg-black text-white">
+                        <p class="text-gray-400 text-xs font-semibold tracking-widest uppercase">15 - Collections</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-3">Tuples and sets</h2>
+                        <p class="text-gray-300 text-sm mb-5">Tuples stay fixed; sets keep only unique values.</p>
+                        <pre class="bg-white/10 text-white rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto"><code>point = (4, 8)
+tags = {"python", "code", "python"}
+print(tags)</code></pre>
+                    </article>
+
+                    <article class="apple-card p-7 bg-[#fff6ed] border border-orange-100">
+                        <p class="text-[var(--apple-orange)] text-xs font-semibold tracking-widest uppercase">16 - Access</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-3">Indexes and slices</h2>
+                        <p class="text-gray-500 text-sm mb-5">Indexes start at zero. A slice takes a range without changing the original value.</p>
+                        <pre class="bg-white text-gray-900 rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto border border-orange-100"><code>word = "Python"
+print(word[0])
+print(word[0:3])</code></pre>
+                    </article>
+
+                    <article class="apple-card p-7 bg-white border border-gray-100">
+                        <p class="text-gray-500 text-xs font-semibold tracking-widest uppercase">17 - Functions</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-3">Parameters and return</h2>
+                        <p class="text-gray-500 text-sm mb-5">Parameters receive values; <code>return</code> sends a result back to where the function was called.</p>
+                        <pre class="bg-black text-white rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto"><code>def double(number):
+    return number * 2
+
+print(double(5))</code></pre>
+                    </article>
+
+                    <article class="apple-card p-7 bg-[#f3f7ff] border border-blue-100">
+                        <p class="text-[var(--apple-blue)] text-xs font-semibold tracking-widest uppercase">18 - Files</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-3">Read a text file</h2>
+                        <p class="text-gray-500 text-sm mb-5">Use <code>with open()</code> so the file closes automatically after reading.</p>
+                        <pre class="bg-white text-gray-900 rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto border border-blue-100"><code>with open("notes.txt") as file:
+    content = file.read()
+    print(content)</code></pre>
+                    </article>
                 </div>
 
-                <section class="grid grid-cols-1 lg:grid-cols-5 gap-6 mt-8">
+                <section id="study-syntax" class="grid scroll-mt-20 grid-cols-1 lg:grid-cols-5 gap-6 mt-8">
                     <div class="lg:col-span-3 bg-white border border-gray-100 rounded-3xl p-7">
                         <p class="text-[var(--apple-blue)] text-xs font-semibold tracking-widest uppercase">Syntax at a glance</p>
                         <h2 class="text-2xl font-bold mt-3 mb-5">Choose the right tool.</h2>
@@ -270,6 +433,29 @@ print(user["name"])</code></pre>
                             <li class="flex gap-3"><span class="text-[var(--apple-orange)] font-bold">04</span><span>Change one thing at a time so you know what fixed it.</span></li>
                         </ul>
                     </div>
+                </section>
+
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <article class="bg-black text-white rounded-3xl p-7">
+                        <p class="text-gray-400 text-xs font-semibold tracking-widest uppercase">Operators</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-5">Work with values.</h2>
+                        <div class="grid grid-cols-2 gap-x-6 gap-y-4 text-sm">
+                            <p><code class="text-white">+</code> Add or join text</p><p><code class="text-white">-</code> Subtract</p>
+                            <p><code class="text-white">*</code> Multiply</p><p><code class="text-white">/</code> Divide</p>
+                            <p><code class="text-white">==</code> Is equal to</p><p><code class="text-white">!=</code> Is not equal to</p>
+                            <p><code class="text-white">&gt;=</code> Greater or equal</p><p><code class="text-white">and</code> Both conditions true</p>
+                        </div>
+                    </article>
+                    <article class="bg-white border border-gray-100 rounded-3xl p-7">
+                        <p class="text-[var(--apple-blue)] text-xs font-semibold tracking-widest uppercase">Good habits</p>
+                        <h2 class="text-2xl font-bold mt-3 mb-5">Write code others can read.</h2>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li>Use names that explain what a value contains, such as <code>total_price</code>.</li>
+                            <li>Keep one idea in each function.</li>
+                            <li>Use four spaces for each indentation level.</li>
+                            <li>Add a short <code># comment</code> when the reason is not obvious.</li>
+                        </ul>
+                    </article>
                 </section>
 
                 <section class="mt-8 bg-[#f3f7ff] border border-blue-100 rounded-3xl p-7 md:p-9">

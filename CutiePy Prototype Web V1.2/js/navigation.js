@@ -44,6 +44,25 @@ function toggleSearchPanel() {
     input.focus();
 }
 
+function scrollStudyShortcuts(direction) {
+    const track = document.getElementById('study-shortcuts-track');
+    if (!track) return;
+    const card = track.querySelector('.study-shortcut-card');
+    const distance = card ? card.offsetWidth + 24 : track.clientWidth;
+    track.scrollBy({ left: direction * distance, behavior: 'smooth' });
+}
+
+function openStudyGuideTopic(topicId) {
+    navigateTo('study-guide');
+    window.setTimeout(() => {
+        const topic = document.getElementById(topicId);
+        if (!topic) return;
+        document.querySelectorAll('.study-guide-topic-focus').forEach(item => item.classList.remove('study-guide-topic-focus'));
+        topic.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        topic.classList.add('study-guide-topic-focus');
+    }, 180);
+}
+
 function searchLessons(query) {
     const results = document.getElementById('site-search-results');
     const normalizedQuery = query.trim().toLowerCase();
@@ -186,20 +205,7 @@ function renderHomeLessonCatalog() {
         '<path d="M6 4h12v16H6z"/><path d="M9 8h6M9 12h6M9 16h3"/>',
         '<path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="8"/>'
     ];
-    const studyGuideCard = `
-        <article role="button" tabindex="0" onclick="navigateTo('study-guide')" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="apple-card home-lesson-card flex-none w-[300px] sm:w-[350px] md:w-[400px] h-[500px] p-8 flex flex-col justify-between cursor-pointer snap-center relative overflow-hidden bg-[#f3f7ff]">
-            <div class="z-10">
-                <p class="text-[var(--apple-blue)] text-xs font-semibold tracking-wider mb-2 uppercase">Quick reference</p>
-                <h3 class="text-2xl font-bold mb-1">Study Guide</h3>
-                <p class="text-gray-600 text-sm">Review Python essentials, syntax, and common errors in one place.</p>
-                <p class="text-gray-900 text-sm mt-4 font-medium">Open guide</p>
-            </div>
-            <div class="home-lesson-number text-[var(--apple-blue)] bg-white border border-blue-100">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M4 19a2.5 2.5 0 0 1 2.5-2.5H20"/><path d="M8 7h8M8 11h6"/></svg>
-            </div>
-        </article>
-    `;
-    catalog.innerHTML = studyGuideCard + Object.entries(lessonsData).map(([id, lesson]) => {
+    catalog.innerHTML = Object.entries(lessonsData).map(([id, lesson]) => {
         const darkCard = Number(id) % 2 === 0;
         return `
             <article role="button" tabindex="0" onclick="openLessonDetail(${id})" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="apple-card home-lesson-card flex-none w-[300px] sm:w-[350px] md:w-[400px] h-[500px] p-8 flex flex-col justify-between cursor-pointer snap-center relative overflow-hidden ${darkCard ? 'bg-black text-white' : ''}">
