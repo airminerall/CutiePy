@@ -42,10 +42,10 @@ function getGeminiApiKey() {
     if (typeof window.CUTIEPY_GEMINI_API_KEY === 'string') {
         key = window.CUTIEPY_GEMINI_API_KEY.trim();
     }
-    if (!key) {
+    if (!key || key.startsWith('YOUR_')) {
         key = (localStorage.getItem('CUTIEPY_GEMINI_API_KEY') || sessionStorage.getItem('CUTIEPY_GEMINI_API_KEY') || '').trim();
     }
-    if (key === 'YOUR_GEMINI_API_KEY_HERE' || key.startsWith('YOUR_')) {
+    if (!key || key.startsWith('YOUR_')) {
         return '';
     }
     return key;
@@ -68,14 +68,21 @@ async function askGemini(question) {
     const apiKey = getGeminiApiKey();
     if (!apiKey) return null;
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${encodeURIComponent(apiKey)}`;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 20000);
     const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             contents: [{ parts: [{ text: buildGeminiPrompt(question) }] }],
-            generationConfig: { temperature: 0.35, maxOutputTokens: 900 }
-        })
-    });
+            generationConfig: {
+                temperature: 0.35,
+                maxOutputTokens: 450,
+                thinkingConfig: { thinkingLevel: 'low' }
+            }
+        }),
+        signal: controller.signal
+    }).finally(() => clearTimeout(timeoutId));
     if (!response.ok) {
         const errorData = await response.json().catch(() => null);
         const apiMessage = errorData?.error?.message || `HTTP ${response.status}`;
@@ -178,11 +185,19 @@ async function askAiTutor(question) {
 
     let answer;
     try {
+        if (!getGeminiApiKey()) {
+            throw new Error('Gemini API key belum dikonfigurasi. Gunakan API key dari Google AI Studio.');
+        }
         answer = await askGemini(cleanQuestion);
-        if (!answer) answer = getAiTutorAnswer(cleanQuestion);
+        if (!answer) throw new Error('Gemini tidak mengembalikan jawaban.');
     } catch (error) {
         console.warn('Gemini is unavailable. Using the local tutor fallback.', error);
-        answer = `${getAiTutorAnswer(cleanQuestion)}\n\n[Gemini is unavailable: ${error.message}. This answer came from Chikawa's built-in tutor.]`;
+        const errorMessage = error.name === 'AbortError'
+            ? 'Request Gemini terlalu lama dan dihentikan setelah 20 detik.'
+            : error.message.includes('User location is not supported')
+                ? 'Gemini API tidak tersedia dari lokasi jaringan ini. Matikan VPN/proxy atau gunakan jaringan dan project Google yang didukung.'
+                : error.message;
+        answer = `${getAiTutorAnswer(cleanQuestion)}\n\n[Gemini belum aktif: ${errorMessage}]`;
     }
     const currentTypingMessage = document.getElementById(typingId);
     if (currentTypingMessage) currentTypingMessage.remove();

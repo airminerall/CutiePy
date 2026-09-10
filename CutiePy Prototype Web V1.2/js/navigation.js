@@ -51,6 +51,11 @@ function openLessonDetail(id) {
     document.getElementById('lesson-badge').innerText = data.badge;
     document.getElementById('lesson-theory-title').innerText = data.theoryTitle;
     document.getElementById('lesson-theory-desc').innerText = data.theoryDesc;
+    const keyPoints = document.getElementById('lesson-key-points');
+    if (keyPoints) {
+        keyPoints.innerHTML = (data.keyPoints || []).map(point => `<li class="flex gap-2"><span aria-hidden="true">-</span><span>${point}</span></li>`).join('');
+        keyPoints.hidden = !data.keyPoints?.length;
+    }
     document.getElementById('lesson-syntax-box').innerText = data.syntax;
     updateLessonVideo(data.videoUrl);
     setCodeValue('lesson-code', data.defaultCode);

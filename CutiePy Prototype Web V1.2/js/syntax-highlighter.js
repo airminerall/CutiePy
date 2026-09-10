@@ -35,10 +35,59 @@ function setCodeValue(id, value) {
     updateCodeHighlight(codeInput);
 }
 
+function insertCodeText(codeInput, text, selectionEnd = codeInput.selectionEnd) {
+    const start = codeInput.selectionStart;
+    const value = codeInput.value;
+    codeInput.value = value.slice(0, start) + text + value.slice(codeInput.selectionEnd);
+    codeInput.selectionStart = selectionEnd;
+    codeInput.selectionEnd = selectionEnd;
+    codeInput.dispatchEvent(new Event('input'));
+}
+
+function handleCodeIndentation(event) {
+    const codeInput = event.currentTarget;
+    const start = codeInput.selectionStart;
+    const end = codeInput.selectionEnd;
+    const value = codeInput.value;
+
+    if (event.key === 'Tab') {
+        event.preventDefault();
+        if (event.shiftKey) {
+            const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+            const indentation = value.slice(lineStart, start).match(/^ {1,4}/)?.[0] || '';
+            const removeCount = Math.min(4, indentation.length);
+            codeInput.value = value.slice(0, lineStart) + value.slice(lineStart + removeCount);
+            codeInput.selectionStart = Math.max(lineStart, start - removeCount);
+            codeInput.selectionEnd = Math.max(lineStart, end - removeCount);
+        } else if (start !== end && value.slice(start, end).includes('\n')) {
+            const selectedLines = value.slice(start, end).split('\n');
+            const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+            const indented = selectedLines.map(line => `    ${line}`).join('\n');
+            codeInput.value = value.slice(0, lineStart) + indented + value.slice(end);
+            codeInput.selectionStart = start + 4;
+            codeInput.selectionEnd = end + (selectedLines.length * 4);
+        } else {
+            insertCodeText(codeInput, '    ', start + 4);
+            return;
+        }
+        codeInput.dispatchEvent(new Event('input'));
+        return;
+    }
+
+    if (event.key !== 'Enter' || start !== end) return;
+    event.preventDefault();
+    const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+    const currentLine = value.slice(lineStart, start);
+    const indentation = currentLine.match(/^\s*/)?.[0] || '';
+    const extraIndent = /:\s*(#.*)?$/.test(currentLine.trim()) ? '    ' : '';
+    insertCodeText(codeInput, `\n${indentation}${extraIndent}`, start + 1 + indentation.length + extraIndent.length);
+}
+
 function setupCodeHighlighting() {
     document.querySelectorAll('textarea.code-input').forEach(codeInput => {
         codeInput.addEventListener('input', () => updateCodeHighlight(codeInput));
         codeInput.addEventListener('scroll', () => updateCodeHighlight(codeInput));
+        codeInput.addEventListener('keydown', handleCodeIndentation);
         updateCodeHighlight(codeInput);
     });
 }
