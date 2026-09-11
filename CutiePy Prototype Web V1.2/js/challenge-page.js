@@ -90,6 +90,30 @@ function resetButtonToSubmit() {
     }
 }
 
+function resetChallengeBunny() {
+    const stage = document.getElementById('challenge-bunny-stage');
+    const speech = document.getElementById('challenge-bunny-speech');
+    const score = document.getElementById('challenge-bunny-score');
+    if (stage) {
+        stage.classList.remove('is-complete', 'bunny-route-1', 'bunny-route-2', 'bunny-route-3', 'bunny-route-4', 'bunny-route-5');
+        stage.classList.add(`bunny-route-${questionIndex + 1}`);
+    }
+    if (speech) speech.textContent = 'Help me find the carrot.';
+    if (score) score.classList.remove('is-visible');
+}
+
+function celebrateChallengeBunny(output) {
+    const stage = document.getElementById('challenge-bunny-stage');
+    const speech = document.getElementById('challenge-bunny-speech');
+    if (!stage || !speech) return;
+    speech.textContent = output;
+    stage.classList.remove('is-complete');
+    void stage.offsetWidth;
+    stage.classList.add('is-complete');
+    const score = document.getElementById('challenge-bunny-score');
+    if (score) score.classList.add('is-visible');
+}
+
 function renderChallenge() {
     const lesson = lessonsData[lessonId];
     const questions = lesson.challenges;
@@ -108,6 +132,7 @@ function renderChallenge() {
     document.getElementById('review-lesson-link').href = `index.html?lesson=${lessonId}`;
     document.getElementById('challenge-output-container').classList.add('hidden');
     setCodeValue('challenge-code', '');
+    resetChallengeBunny();
     resetButtonToSubmit();
     if (completed.length === questions.length) {
         challengeButtonMode = 'next-challenge';
@@ -179,6 +204,7 @@ function executePageChallenge() {
             showButtonState('Try Again', 'bg-red-600');
             return;
         }
+        celebrateChallengeBunny(result);
         const completed = completedQuestionIndexes();
         if (!completed.includes(questionIndex)) {
             progress.completedQuestions[String(lessonId)] = [...completed, questionIndex].sort((first, second) => first - second);
