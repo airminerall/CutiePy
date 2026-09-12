@@ -117,6 +117,7 @@ function updateLessonVideo(videoUrl) {
     const driveId = driveMatch ? driveMatch[1] : String(videoUrl || '').match(/^[a-zA-Z0-9_-]{20,}$/)?.[0];
     const youtubeMatch = String(videoUrl || '').match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i);
     const youtubeId = youtubeMatch?.[1];
+    const pageOrigin = /^https?:$/i.test(window.location.protocol) ? window.location.origin : '';
 
     if (driveId) {
         video.removeAttribute('src');
@@ -129,7 +130,7 @@ function updateLessonVideo(videoUrl) {
         video.removeAttribute('src');
         video.load();
         video.hidden = true;
-        embed.src = `https://www.youtube.com/embed/${youtubeId}`;
+        embed.src = `https://www.youtube.com/embed/${youtubeId}${pageOrigin ? `?origin=${encodeURIComponent(pageOrigin)}` : ''}`;
         embed.hidden = false;
         placeholder.hidden = true;
     } else if (videoUrl) {
