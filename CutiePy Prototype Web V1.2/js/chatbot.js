@@ -32,9 +32,21 @@ const aiTutorKnowledge = [
 ];
 
 function getTutorContext() {
-    const lesson = typeof lessonsData !== 'undefined' ? lessonsData[currentLessonId] : null;
-    const challenge = typeof lessonsData !== 'undefined' ? lessonsData[activeChallengeLesson] : null;
-    return { lesson, challenge };
+    if (typeof lessonsData === 'undefined') return { page: 'Unknown', lesson: null, challenge: null, questionNumber: null };
+
+    const challengePageLessonId = typeof lessonId === 'number' && lessonsData[lessonId] ? lessonId : null;
+    const lessonIdForContext = challengePageLessonId || currentLessonId || 1;
+    const lesson = lessonsData[lessonIdForContext] || null;
+    const questionNumber = typeof questionIndex === 'number' ? questionIndex + 1 : null;
+    const challenge = questionNumber && lesson?.challenges?.[questionNumber - 1]
+        ? lesson.challenges[questionNumber - 1]
+        : lesson?.challenges?.[0] || null;
+    const activeView = document.querySelector('.view-section.block')?.id?.replace(/^view-/, '');
+    const page = window.location.pathname.endsWith('challenge.html')
+        ? 'challenge'
+        : activeView || window.location.pathname.split('/').pop() || 'home';
+
+    return { page, lesson, challenge, questionNumber };
 }
 
 function getGeminiApiKey() {
@@ -52,13 +64,16 @@ function getGeminiApiKey() {
 }
 
 function buildGeminiPrompt(question) {
-    const { lesson, challenge } = getTutorContext();
+    const { page, lesson, challenge, questionNumber } = getTutorContext();
     return `You are Chikawa, a cute, patient, English-speaking Python tutor inside the CutiePy learning app.
 Answer the user's question accurately and clearly. You can answer general questions, but prioritize Python learning when relevant.
-Use short sections, concrete examples, and fenced Python code when useful. Explain why code works. For exercises, guide the student step by step and do not hide important reasoning.
+Use short sections, concrete examples, and fenced Python code when useful. Explain why code works. For exercises, guide the student step by step and do not hide important reasoning. Keep the response under 350 words and always finish the explanation with a complete sentence.
 If the user shares code, review it and identify the exact issue before suggesting a corrected version. If the question is ambiguous, ask one focused follow-up question.
+The user is currently on the "${page}" page. Use this page context when interpreting phrases such as "this", "here", or "this exercise".
 Current lesson: ${lesson?.title || 'None'}
-Current challenge: ${challenge?.challengeTask || 'None'}
+Current exercise${questionNumber ? ` (Question ${questionNumber})` : ''}: ${challenge?.title || 'None'}
+Exercise task: ${challenge?.task || lesson?.challengeTask || 'None'}
+Exercise hint: ${challenge?.hint || lesson?.challengeHint || 'None'}
 
 User question:
 ${question}`;
@@ -67,17 +82,20 @@ ${question}`;
 async function askGemini(question) {
     const apiKey = getGeminiApiKey();
     if (!apiKey) return null;
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${encodeURIComponent(apiKey)}`;
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent`;
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 20000);
     const response = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': apiKey
+        },
         body: JSON.stringify({
             contents: [{ parts: [{ text: buildGeminiPrompt(question) }] }],
             generationConfig: {
                 temperature: 0.35,
-                maxOutputTokens: 450,
+                maxOutputTokens: 900,
                 thinkingConfig: { thinkingLevel: 'low' }
             }
         }),
@@ -112,8 +130,17 @@ function getAiTutorAnswer(question) {
 
     const match = aiTutorKnowledge.find(topic => topic.keys.some(key => normalized.includes(key)));
     if (match) return match.answer;
-    if (/\b(challenge|exercise|task|hint)\b/.test(normalized)) {
-        return `You are working on ${challenge?.title || 'a Python challenge'}. Read the task carefully, split it into input, processing, and output, then test each step with ${'`print()`'}. You can paste your attempt here and I will give you a hint without taking over.`;
+    if (/\b(challenge|exercise|task|hint)\b/.test(normalized) || /\bhow (do|can) i (solve|complete)|how to solve|solve this\b/.test(normalized)) {
+        if (challenge?.task) {
+            return `You are working on **${challenge.title}** in ${lesson?.title || 'this lesson'}.
+
+Task: ${challenge.task}
+
+Start by identifying the input, the processing step, and the expected output. Then write the smallest Python version and test it with ${'`print()`'}. A useful hint is: ${challenge.hint || 'break the task into one small step at a time'}
+
+Paste your attempt here and I will help you find the next step without giving away the whole answer.`;
+        }
+        return `You are working on ${lesson?.title || 'a Python challenge'}. Read the task carefully, split it into input, processing, and output, then test each step with ${'`print()`'}. You can paste your attempt here and I will give you a hint without taking over.`;
     }
     if (/\b(lesson|learn|current topic)\b/.test(normalized)) {
         return `You are currently viewing ${lesson?.title || 'a Python lesson'}. Try the example, change one small part, and run it again. Ask me about any line or concept that feels unclear.`;
@@ -195,18 +222,13 @@ async function askAiTutor(question) {
     let answer;
     try {
         if (!getGeminiApiKey()) {
-            throw new Error('Gemini API key belum dikonfigurasi. Gunakan API key dari Google AI Studio.');
+            throw new Error('Gemini API key belum dikonfigurasi atau tokennya tidak valid. Gunakan API key dari Google AI Studio, bukan token login/OAuth.');
         }
         answer = await askGemini(cleanQuestion);
         if (!answer) throw new Error('Gemini tidak mengembalikan jawaban.');
     } catch (error) {
         console.warn('Gemini is unavailable. Using the local tutor fallback.', error);
-        const errorMessage = error.name === 'AbortError'
-            ? 'Request Gemini terlalu lama dan dihentikan setelah 20 detik.'
-            : error.message.includes('User location is not supported')
-                ? 'Gemini API tidak tersedia dari lokasi jaringan ini. Matikan VPN/proxy atau gunakan jaringan dan project Google yang didukung.'
-                : error.message;
-        answer = `${getAiTutorAnswer(cleanQuestion)}\n\n[Gemini belum aktif: ${errorMessage}]`;
+        answer = getAiTutorAnswer(cleanQuestion);
     }
     const currentTypingMessage = document.getElementById(typingId);
     if (currentTypingMessage) currentTypingMessage.remove();

@@ -109,10 +109,32 @@ function openLessonDetail(id) {
 
 function updateLessonVideo(videoUrl) {
     const video = document.getElementById('lesson-video');
+    const embed = document.getElementById('lesson-video-embed');
     const placeholder = document.getElementById('lesson-video-placeholder');
-    if (!video || !placeholder) return;
+    if (!video || !embed || !placeholder) return;
 
-    if (videoUrl) {
+    const driveMatch = String(videoUrl || '').match(/drive\.google\.com\/file\/d\/([^/]+)/i);
+    const driveId = driveMatch ? driveMatch[1] : String(videoUrl || '').match(/^[a-zA-Z0-9_-]{20,}$/)?.[0];
+    const youtubeMatch = String(videoUrl || '').match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i);
+    const youtubeId = youtubeMatch?.[1];
+
+    if (driveId) {
+        video.removeAttribute('src');
+        video.load();
+        video.hidden = true;
+        embed.src = `https://drive.google.com/file/d/${driveId}/preview`;
+        embed.hidden = false;
+        placeholder.hidden = true;
+    } else if (youtubeId) {
+        video.removeAttribute('src');
+        video.load();
+        video.hidden = true;
+        embed.src = `https://www.youtube.com/embed/${youtubeId}`;
+        embed.hidden = false;
+        placeholder.hidden = true;
+    } else if (videoUrl) {
+        embed.removeAttribute('src');
+        embed.hidden = true;
         video.src = videoUrl;
         video.hidden = false;
         placeholder.hidden = true;
@@ -120,6 +142,8 @@ function updateLessonVideo(videoUrl) {
         video.removeAttribute('src');
         video.load();
         video.hidden = true;
+        embed.removeAttribute('src');
+        embed.hidden = true;
         placeholder.hidden = false;
     }
 }
@@ -145,6 +169,14 @@ function selectChallengeLesson(id) {
 function updateChallengeBubbles() {
     const lessonCount = Object.keys(lessonsData).length;
     const progress = getActiveProgress();
+    const completedLabel = document.getElementById('challenge-completed-label');
+    const completedPercent = document.getElementById('challenge-completed-percent');
+    const completedBar = document.getElementById('challenge-completed-bar');
+    const percentage = Math.round((completedLessonsCount / lessonCount) * 100);
+    if (completedLabel) completedLabel.innerText = `${completedLessonsCount} of ${lessonCount} lessons completed`;
+    if (completedPercent) completedPercent.innerText = `${percentage}%`;
+    if (completedBar) completedBar.style.width = `${percentage}%`;
+
     for (let index = 1; index <= lessonCount; index++) {
         const bubble = document.getElementById('bubble-' + index);
         const badge = document.getElementById('badge-' + index);

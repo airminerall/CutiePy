@@ -248,6 +248,10 @@ document.addEventListener('DOMContentLoaded', () => {
         CutiePyPageProgress.navigate(`challenge.html?lesson=${nextAvailableLesson}`, true);
         return;
     }
+    const questions = lessonsData[lessonId].challenges;
+    const completed = completedQuestionIndexes();
+    const firstIncompleteQuestion = questions.findIndex((_, index) => !completed.includes(index));
+    questionIndex = firstIncompleteQuestion === -1 ? questions.length - 1 : firstIncompleteQuestion;
     setupCodeHighlighting();
     document.getElementById('challenge-run-btn').addEventListener('click', handleChallengeButtonClick);
     renderChallenge();

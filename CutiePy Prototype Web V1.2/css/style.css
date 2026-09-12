@@ -1085,6 +1085,13 @@ body {
 
 .lesson-video { display: block; object-fit: cover; }
 
+.lesson-video-embed {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
 .lesson-video-placeholder {
     display: flex;
     flex-direction: column;
