@@ -1,3 +1,13 @@
+/* CutiePy Chiikawa design tokens */
+:root {
+    --color-soft-blue: #dff3fb;
+    --color-soft-pink: #fbe5ed;
+    --color-soft-yellow: #fff3c9;
+    --color-white: #ffffff;
+    --color-soft-green: #93cbb3;
+    --color-ink: #594b52;
+}
+
 /* Learning path page */
 .learning-path-page { min-height: 100vh; background: #f5f5f7; color: #1d1d1f; }
 .learning-path-header { position: sticky; top: 0; z-index: 10; border-bottom: 1px solid #e5e7eb; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(14px); }
@@ -2172,3 +2182,331 @@ textarea.code-input {
     .main-nav-links { max-width: 52vw; }
     .study-shortcut-card { width: 350px; min-width: 350px; }
 }
+
+/* Chiikawa visual system: all rules below are presentation-only overrides. */
+:root {
+    --cutie-shadow: 0 12px 26px rgba(132, 107, 117, 0.12);
+    --cutie-outline: rgba(133, 105, 115, 0.2);
+    --cutie-hero-background: var(--color-soft-blue);
+}
+
+body { background: var(--color-white); color: var(--color-ink); font-family: 'Nunito', sans-serif; }
+
+.cutie-wordmark { display: inline-flex; align-items: center; gap: 8px; color: var(--color-ink); font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: 0; text-decoration: none; }
+.cutie-wordmark-face { display: block; width: 31px; height: 28px; border: 2px solid var(--color-white); border-radius: 11px; background: var(--color-soft-pink) url('../assets/chikawa.png') center / 32px auto no-repeat; box-shadow: 0 3px 0 rgba(133, 105, 115, 0.12); }
+
+.cutie-hero { background: var(--cutie-hero-background) !important; }
+.cutie-hero::before { background-image: url('../assets/chikawa.png') !important; opacity: 0.95 !important; }
+
+.cutie-doodle { position: absolute; z-index: 0; width: 22px; height: 22px; fill: none; stroke: var(--color-soft-green); stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; pointer-events: none; }
+.cutie-doodle--star { top: 23%; right: 16%; fill: var(--color-soft-yellow); stroke: #e5be62; }
+.cutie-doodle--swirl { bottom: 20%; left: 15%; }
+
+.home-lesson-card { border: 1px solid var(--cutie-outline) !important; border-top: 0 !important; border-radius: 18px !important; box-shadow: var(--cutie-shadow); }
+.home-lesson-card:nth-child(3n + 1) { background: var(--color-soft-pink) !important; color: var(--color-ink) !important; }
+.home-lesson-card:nth-child(3n + 2) { background: var(--color-soft-blue) !important; color: var(--color-ink) !important; }
+.home-lesson-card:nth-child(3n) { background: var(--color-soft-yellow) !important; color: var(--color-ink) !important; }
+.home-lesson-card.bg-black h3, .home-lesson-card.bg-black .text-white, .home-lesson-card.bg-black .text-gray-300, .home-lesson-card.bg-black .text-gray-400, .home-lesson-card.bg-black .text-gray-900 { color: var(--color-ink) !important; }
+.home-lesson-card:nth-child(3n + 1)::after { background-image: url('../assets/chikawa.png') !important; }
+.home-lesson-card:nth-child(3n + 2)::after { background-image: url('../assets/chikawa_folder_icon_2-removebg-preview.png') !important; }
+.home-lesson-card:nth-child(3n)::after { background-image: url('../assets/chikawa_folder_icon_3-removebg-preview.png') !important; }
+
+#view-lesson-menu #lesson-catalog { gap: 38px 32px; padding-top: 30px; }
+#view-lesson-menu #lesson-catalog .apple-card { overflow: visible; border: 1px solid var(--cutie-outline) !important; border-top: 0 !important; border-radius: 10px 18px 18px 18px !important; box-shadow: var(--cutie-shadow); }
+#view-lesson-menu #lesson-catalog .apple-card::before { position: absolute; top: -22px; left: 18px; width: 106px; height: 28px; border: 1px solid var(--cutie-outline); border-bottom: 0; border-radius: 13px 13px 0 0; content: ''; }
+#view-lesson-menu #lesson-catalog .apple-card::after { right: 12px; bottom: auto; top: -50px; z-index: 1; width: 74px; height: 66px; opacity: 1; mix-blend-mode: normal; }
+#view-lesson-menu #lesson-catalog .apple-card:nth-child(3n + 1), #view-lesson-menu #lesson-catalog .apple-card:nth-child(3n + 1)::before { background-color: var(--color-soft-pink) !important; }
+#view-lesson-menu #lesson-catalog .apple-card:nth-child(3n + 2), #view-lesson-menu #lesson-catalog .apple-card:nth-child(3n + 2)::before { background-color: var(--color-soft-blue) !important; }
+#view-lesson-menu #lesson-catalog .apple-card:nth-child(3n), #view-lesson-menu #lesson-catalog .apple-card:nth-child(3n)::before { background-color: var(--color-soft-yellow) !important; }
+#view-lesson-menu #lesson-catalog .apple-card:nth-child(3n + 1)::after { background-image: url('../assets/chikawa.png') !important; }
+#view-lesson-menu #lesson-catalog .apple-card:nth-child(3n + 2)::after { background-image: url('../assets/chikawa_folder_icon_2-removebg-preview.png') !important; }
+#view-lesson-menu #lesson-catalog .apple-card:nth-child(3n)::after { background-image: url('../assets/chikawa_folder_icon_3-removebg-preview.png') !important; }
+
+#view-challenge #challenge-catalog .apple-card { overflow: visible; border: 1px solid var(--cutie-outline) !important; border-radius: 16px !important; background: var(--color-white) !important; box-shadow: 0 8px 18px rgba(132, 107, 117, 0.09); }
+#view-challenge #challenge-catalog .apple-card::after { display: none; }
+#view-challenge #challenge-catalog .apple-card > div:first-child { border: 3px solid var(--color-white); background-color: var(--color-soft-blue) !important; background-position: center; background-repeat: no-repeat; background-size: 58px auto; box-shadow: 0 4px 0 rgba(133, 105, 115, 0.12); color: transparent !important; font-size: 0 !important; }
+#view-challenge #challenge-catalog .apple-card:nth-child(3n + 1) > div:first-child { background-image: url('../assets/chikawa.png'); background-color: var(--color-soft-pink) !important; }
+#view-challenge #challenge-catalog .apple-card:nth-child(3n + 2) > div:first-child { background-image: url('../assets/chikawa_folder_icon_2-removebg-preview.png'); }
+#view-challenge #challenge-catalog .apple-card:nth-child(3n) > div:first-child { background-image: url('../assets/chikawa_folder_icon_3-removebg-preview.png'); background-color: var(--color-soft-yellow) !important; }
+#view-challenge #challenge-catalog .apple-card:nth-child(5n) > div:first-child { background-image: url('../assets/chikawa-blue-removebg-preview.png'); background-color: var(--color-soft-blue) !important; }
+
+.study-shortcut-card { border: 1px solid var(--cutie-outline); border-radius: 16px; box-shadow: var(--cutie-shadow); }
+.study-shortcut-card > svg { opacity: 0.18; }
+.study-delivery-art { position: absolute; right: 12px; bottom: 18px; z-index: 1; width: 116px; height: 92px; object-fit: cover; pointer-events: none; }
+.study-shortcut-card:nth-child(1) .study-delivery-art { object-position: left center; }
+.study-shortcut-card:nth-child(2) .study-delivery-art { object-position: center center; }
+.study-shortcut-card:nth-child(3) .study-delivery-art { object-position: right center; }
+
+@media (max-width: 640px) {
+    .cutie-hero::before { right: -16px !important; width: 128px !important; opacity: 0.65 !important; }
+    .cutie-doodle--star { right: 10%; }
+    .cutie-doodle--swirl { left: 7%; }
+    #view-lesson-menu #lesson-catalog { gap: 34px; padding-top: 24px; }
+    #view-lesson-menu #lesson-catalog .apple-card::after { width: 62px; height: 54px; }
+    .study-delivery-art { width: 100px; height: 78px; }
+}
+
+/* Correct layering and mascot crops for the pastel views. */
+#global-nav {
+    background: rgba(255, 255, 255, 0.94) !important;
+    border-bottom-color: rgba(133, 105, 115, 0.14) !important;
+    box-shadow: 0 5px 18px rgba(132, 107, 117, 0.08);
+}
+
+.main-nav-links {
+    background: var(--color-white) !important;
+    border: 1px solid rgba(133, 105, 115, 0.12);
+    border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(132, 107, 117, 0.08);
+}
+
+.main-nav-links a { position: relative; z-index: 0; border-radius: 999px; color: var(--color-ink); transition: color 0.22s ease-out, background-color 0.22s ease-out, transform 0.22s ease-out; }
+.main-nav-links a:hover { background: var(--color-soft-blue); color: var(--color-ink); transform: translateY(-1px); }
+.main-nav-links a.is-active { background: var(--color-soft-pink); color: var(--color-ink); box-shadow: 0 2px 7px rgba(132, 107, 117, 0.12); }
+
+#view-lesson-menu > .max-w-7xl { isolation: isolate; }
+#view-lesson-menu > .max-w-7xl::before { z-index: -2 !important; opacity: 0.18 !important; }
+#view-lesson-menu > .max-w-7xl > * { position: relative; z-index: 1; }
+#view-lesson-menu h1, #view-lesson-menu p { color: var(--color-ink); text-shadow: none; }
+
+/* The trio asset is clean artwork, cropped by position into a single character avatar. */
+#view-lesson-menu #lesson-catalog .apple-card::after {
+    top: -57px;
+    right: 10px;
+    width: 72px;
+    height: 72px;
+    background-image: url('../assets/chikawa-trio-removebg-preview.png') !important;
+    background-size: 216px auto;
+    background-position: left center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+}
+
+#view-lesson-menu #lesson-catalog .apple-card:nth-child(3n + 1)::after { background-image: url('../assets/chikawa-trio-removebg-preview.png') !important; background-position: left center; }
+#view-lesson-menu #lesson-catalog .apple-card:nth-child(3n + 2)::after { background-image: url('../assets/chikawa-trio-removebg-preview.png') !important; background-position: center center; }
+#view-lesson-menu #lesson-catalog .apple-card:nth-child(3n)::after { background-image: url('../assets/chikawa-trio-removebg-preview.png') !important; background-position: right center; }
+
+#view-challenge #challenge-catalog .apple-card > div:first-child {
+    background-image: url('../assets/chikawa-trio-removebg-preview.png') !important;
+    background-size: 180px auto;
+    background-position: left center;
+    border-radius: 50%;
+}
+
+#view-challenge #challenge-catalog .apple-card:nth-child(3n + 1) > div:first-child { background-image: url('../assets/chikawa-trio-removebg-preview.png') !important; background-position: left center; background-color: var(--color-soft-pink) !important; }
+#view-challenge #challenge-catalog .apple-card:nth-child(3n + 2) > div:first-child { background-image: url('../assets/chikawa-trio-removebg-preview.png') !important; background-position: center center; background-color: var(--color-soft-blue) !important; }
+#view-challenge #challenge-catalog .apple-card:nth-child(3n) > div:first-child { background-image: url('../assets/chikawa-trio-removebg-preview.png') !important; background-position: right center; background-color: var(--color-soft-yellow) !important; }
+#view-challenge #challenge-catalog .apple-card:nth-child(5n) > div:first-child { background-image: url('../assets/chikawa-trio-removebg-preview.png') !important; background-position: center center; }
+
+/* Soft tactile interaction and ambient motion. */
+.apple-btn, .auth-submit, .auth-choice-button, .study-shortcuts-arrow {
+    transition: transform 0.2s ease-out, background-color 0.2s ease-out, filter 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.apple-btn:hover, .auth-submit:hover, .auth-choice-button:hover, .study-shortcuts-arrow:hover { filter: brightness(1.03); transform: translateY(-2px) scale(1.02); }
+.apple-btn:active, .auth-submit:active, .auth-choice-button:active, .study-shortcuts-arrow:active { transform: scale(0.97); }
+
+#view-lesson-menu #lesson-catalog .apple-card,
+.home-lesson-card,
+.study-shortcut-card,
+#view-challenge #challenge-catalog .apple-card {
+    transition: transform 0.24s ease-out, box-shadow 0.24s ease-out;
+}
+
+#view-lesson-menu #lesson-catalog .apple-card:hover { transform: translateY(-7px) rotate(-1deg) scale(1.02); box-shadow: 0 18px 32px rgba(132, 107, 117, 0.17); }
+.home-lesson-card:hover, .study-shortcut-card:hover, #view-challenge #challenge-catalog .apple-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 16px 28px rgba(132, 107, 117, 0.16); }
+
+#view-lesson-menu #lesson-catalog .apple-card::after,
+.home-lesson-card::after,
+.study-delivery-art,
+.cutie-hero::before {
+    animation: cutie-breathe 4.6s ease-in-out infinite;
+    transform-origin: center bottom;
+}
+
+#view-lesson-menu #lesson-catalog .apple-card:hover::after,
+.home-lesson-card:hover::after,
+.study-shortcut-card:hover .study-delivery-art { animation: cutie-wiggle 0.65s ease-in-out both; }
+
+.cutie-doodle--star { animation: cutie-drift 6s ease-in-out infinite; }
+.cutie-doodle--swirl { animation: cutie-turn 9s ease-in-out infinite; }
+
+.challenge-progress-bar { animation: challenge-fill 0.65s ease-out both; transform-origin: left center; }
+#view-challenge #challenge-catalog .apple-card.is-new { animation: node-unlock 0.42s ease-out both; }
+#view-challenge #challenge-catalog .apple-card.is-new::before { position: absolute; top: -10px; right: 14px; width: 12px; height: 12px; border-radius: 2px; background: var(--color-soft-yellow); box-shadow: -19px 13px 0 -3px var(--color-soft-green), 16px 18px 0 -4px var(--color-soft-pink); content: ''; animation: sparkle-burst 0.55s ease-out both; }
+
+.view-section.view-enter { animation: cutie-section-in 0.32s ease-out both; }
+
+@keyframes cutie-breathe { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-3px) scale(1.018); } }
+@keyframes cutie-wiggle { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-4deg) translateY(-2px); } 65% { transform: rotate(3deg) translateY(-3px); } }
+@keyframes cutie-drift { 0%, 100% { transform: translate(0, 0) rotate(0); } 50% { transform: translate(5px, -5px) rotate(8deg); } }
+@keyframes cutie-turn { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(12deg); } }
+@keyframes challenge-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes node-unlock { 0% { transform: scale(0.84); } 65% { transform: scale(1.06); } 100% { transform: scale(1); } }
+@keyframes sparkle-burst { from { opacity: 0; transform: scale(0.35) rotate(0); } 70% { opacity: 1; } to { opacity: 0; transform: scale(1.5) rotate(35deg); } }
+@keyframes cutie-section-in { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* Founders: bring the team view into the same gentle CutiePy system. */
+#view-group {
+    background: linear-gradient(180deg, var(--color-white) 0%, #fffaf5 100%);
+}
+
+#view-group > div:first-child {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-bottom-color: rgba(133, 105, 115, 0.14) !important;
+    background: var(--color-soft-blue) !important;
+}
+
+#view-group > div:first-child::before {
+    right: 7% !important;
+    bottom: -45px !important;
+    z-index: -1 !important;
+    width: 225px !important;
+    height: 150px !important;
+    background-image: url('../assets/chikawa-trio-removebg-preview.png') !important;
+    opacity: 0.45 !important;
+    mix-blend-mode: normal !important;
+    animation: cutie-breathe 5.5s ease-in-out infinite;
+}
+
+#view-group > div:first-child::after {
+    position: absolute;
+    top: 28px;
+    left: 11%;
+    z-index: -1;
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    background: var(--color-soft-yellow);
+    box-shadow: 52px 35px 0 -7px var(--color-soft-pink), 92px -8px 0 -9px var(--color-soft-green);
+    content: '';
+    transform: rotate(45deg);
+    animation: cutie-drift 7s ease-in-out infinite;
+}
+
+#view-group > div:first-child > * { position: relative; z-index: 1; }
+#view-group > div:first-child h1 { color: var(--color-ink); }
+
+#view-group > div:nth-child(2) { position: relative; }
+#view-group > div:nth-child(2)::before {
+    position: absolute;
+    top: 68px;
+    left: max(12px, calc(50% - 580px));
+    width: 32px;
+    height: 16px;
+    border-top: 2px solid var(--color-soft-green);
+    border-radius: 50%;
+    content: '';
+    transform: rotate(-18deg);
+    animation: cutie-turn 9s ease-in-out infinite;
+}
+
+#view-group .apple-card {
+    position: relative;
+    min-height: 352px;
+    overflow: hidden;
+    border: 1px solid var(--cutie-outline) !important;
+    border-radius: 20px !important;
+    box-shadow: var(--cutie-shadow);
+    transition: transform 0.26s ease-out, box-shadow 0.26s ease-out;
+}
+
+#view-group .grid > .apple-card:nth-child(3n + 1) { background: var(--color-soft-pink) !important; }
+#view-group .grid > .apple-card:nth-child(3n + 2) { background: var(--color-soft-blue) !important; }
+#view-group .grid > .apple-card:nth-child(3n) { background: var(--color-soft-yellow) !important; }
+#view-group .group-member-bottom .apple-card:nth-child(1) { background: var(--color-soft-blue) !important; }
+#view-group .group-member-bottom .apple-card:nth-child(2) { background: var(--color-soft-pink) !important; }
+
+#view-group .apple-card::before {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(105, 164, 144, 0.55);
+    border-radius: 50%;
+    content: '';
+    animation: cutie-drift 6s ease-in-out infinite;
+}
+
+#view-group .apple-card::after {
+    position: absolute;
+    right: -13px;
+    bottom: -12px;
+    width: 102px;
+    height: 88px;
+    background: url('../assets/chikawa-trio-removebg-preview.png') left bottom / 300px auto no-repeat;
+    content: '';
+    opacity: 0.64;
+    pointer-events: none;
+    transform-origin: right bottom;
+    animation: cutie-breathe 5s ease-in-out infinite;
+}
+
+/* Keep founders cards focused on the team photos and copy. */
+#view-group .apple-card::after { display: none; }
+
+#view-group .grid > .apple-card:nth-child(3n + 2)::after,
+#view-group .group-member-bottom .apple-card:nth-child(1)::after { background-position: center bottom; }
+#view-group .grid > .apple-card:nth-child(3n)::after,
+#view-group .group-member-bottom .apple-card:nth-child(2)::after { background-position: right bottom; }
+
+#view-group .apple-card > * { position: relative; z-index: 1; }
+#view-group .apple-card:hover { transform: translateY(-8px) rotate(-0.8deg) scale(1.02); box-shadow: 0 20px 34px rgba(132, 107, 117, 0.18); }
+#view-group .apple-card:focus-visible { outline: 3px solid rgba(117, 183, 208, 0.7); outline-offset: 4px; }
+
+#view-group .group-member-photo {
+    border: 5px solid var(--color-white);
+    box-shadow: 0 5px 0 rgba(133, 105, 115, 0.12);
+    transition: transform 0.26s ease-out, box-shadow 0.26s ease-out;
+}
+
+#view-group .apple-card:hover .group-member-photo { transform: scale(1.06) rotate(2deg); box-shadow: 0 8px 0 rgba(133, 105, 115, 0.13); }
+#view-group .apple-card h3 { color: var(--color-ink); }
+#view-group .apple-card > p:last-child { color: #615a63 !important; }
+
+#view-group.view-enter .apple-card::after { animation-delay: 0.15s; }
+
+@media (max-width: 640px) {
+    #view-group > div:first-child::before { right: -46px !important; width: 170px !important; opacity: 0.28 !important; }
+    #view-group > div:first-child::after { left: 8%; }
+    #view-group .apple-card { min-height: 0; padding: 28px 24px !important; }
+    #view-group .apple-card::after { width: 82px; height: 70px; opacity: 0.45; }
+}
+
+/* Study Tools use their pastel color blocks without mascot vehicle artwork. */
+.study-delivery-art { display: none; }
+
+/* White is the site canvas; pastel colors are reserved for purposeful surfaces. */
+body,
+body[class*="bg-"] {
+    background: var(--color-white) !important;
+    color: var(--color-ink);
+}
+
+.learning-path-page,
+.challenge-page { background: var(--color-white) !important; }
+
+.learning-path-header,
+.challenge-page > header { background: rgba(255, 255, 255, 0.94) !important; }
+
+.learning-path-step { border-color: var(--cutie-outline); background: var(--color-white); }
+.learning-path-step.is-complete { background: var(--color-soft-blue); border-color: rgba(117, 183, 208, 0.45); }
+.learning-path-step--final { background: var(--color-soft-pink); color: var(--color-ink); }
+.learning-path-step--final > div > p:last-child { color: #615a63; }
+.learning-path-next { background: var(--color-soft-yellow); }
+
+#view-home > section:nth-child(2),
+#view-home > section:nth-child(3),
+#view-home > section:nth-child(4),
+#view-lesson-menu,
+#view-study-guide,
+#view-challenge,
+#view-group,
+#view-account { background: var(--color-white); }

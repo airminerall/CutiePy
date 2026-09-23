@@ -31,7 +31,7 @@
                     <span class="auth-icon auth-icon-book">▤</span>
                     <span class="auth-icon auth-icon-globe">◎</span>
                     <span class="auth-icon auth-icon-mail">✉</span>
-                    <div class="auth-gate-avatar"><span>🐍</span><b>py</b></div>
+                    <div class="auth-gate-avatar"><span>&lt;/&gt;</span><b>py</b></div>
                 </div>
                 <p class="auth-gate-eyebrow">Learn. Build. Create.</p>
                 <h1 id="auth-gate-title">Start learning Python with CutiePy.</h1>
@@ -65,11 +65,9 @@
     <nav id="global-nav" class="w-full bg-[rgba(255,255,255,0.42)] backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="relative flex items-center justify-between h-14 text-sm font-medium text-gray-800">
-                <a href="#" onclick="event.preventDefault(); navigateTo('home')" class="hover:text-black transition-colors flex items-center gap-2">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                    </svg>
-                    <span class="text-base font-semibold tracking-tight">CutiePy</span>
+                <a href="#" onclick="event.preventDefault(); navigateTo('home')" class="cutie-wordmark hover:text-black transition-colors" aria-label="CutiePy home">
+                    <span class="cutie-wordmark-face" aria-hidden="true"></span>
+                    <span>cutie py.</span>
                 </a>
                 
                 <div class="main-nav-links hidden md:flex items-center gap-1 p-1">
@@ -102,7 +100,9 @@
     <main id="main-content" class="flex-grow">
         
         <div id="view-home" class="view-section block pb-20">
-            <section class="w-full bg-gradient-to-b from-[#e1eaf5] to-white pt-16 pb-12 px-4 text-center">
+            <section class="cutie-hero w-full bg-gradient-to-b from-[#e1eaf5] to-white pt-16 pb-12 px-4 text-center">
+                <svg class="cutie-doodle cutie-doodle--star" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.8 7.2L21 12l-7.2 1.8L12 21l-1.8-7.2L3 12l7.2-1.8L12 2Z"/></svg>
+                <svg class="cutie-doodle cutie-doodle--swirl" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.5 7.5c0-3-3.1-4.9-6-3.8-3.6 1.3-4.5 6.1-1.6 8.6 2.4 2.1 6.5.6 6.3-2.5-.1-2-2.7-2.8-4-1.3-1.4 1.6 0 4 2.1 4.2"/></svg>
                 <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-4">Surprise and shine.</h1>
                 <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">Master Python with elegance. Start your coding journey today with our meticulously designed lessons.</p>
                 <div class="flex flex-wrap justify-center gap-4">
@@ -131,14 +131,17 @@
                 <div id="study-shortcuts-track" class="study-shortcuts-track hide-scrollbar" aria-label="Study Guide shortcuts">
                     <article role="button" tabindex="0" onclick="openStudyGuideTopic('study-basics')" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="study-shortcut-card study-shortcut-card--blue">
                         <p>Quick reference</p><h3>Study Guide</h3><span>Review the essentials</span>
+                        <img class="study-delivery-art" src="assets/chikawa-vehicle-removebg-preview.png" alt="" aria-hidden="true">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z"/><path d="M4 19a2.5 2.5 0 0 1 2.5-2.5H20"/><path d="M8 7h8M8 11h6"/></svg>
                     </article>
                     <article role="button" tabindex="0" onclick="openStudyGuideTopic('study-syntax')" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="study-shortcut-card study-shortcut-card--orange">
                         <p>Syntax at a glance</p><h3>Python Patterns</h3><span>Find the right tool</span>
+                        <img class="study-delivery-art" src="assets/chikawa-vehicle-removebg-preview.png" alt="" aria-hidden="true">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 9 4 13l4 4M16 9l4 4-4 4M14 5l-4 16"/></svg>
                     </article>
                     <article role="button" tabindex="0" onclick="openStudyGuideTopic('study-debugging')" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="study-shortcut-card study-shortcut-card--dark">
                         <p>Debug smarter</p><h3>Error Guide</h3><span>Understand common errors</span>
+                        <img class="study-delivery-art" src="assets/chikawa-vehicle-removebg-preview.png" alt="" aria-hidden="true">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4m0 3h.01"/><path d="M10.3 4.7 2.7 18a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3L13.7 4.7a2 2 0 0 0-3.4 0Z"/></svg>
                     </article>
                     <article role="button" tabindex="0" onclick="openStudyGuideTopic('study-variables')" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.click(); }" class="study-shortcut-card study-shortcut-card--blue">

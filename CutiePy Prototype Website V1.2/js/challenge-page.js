@@ -11,6 +11,18 @@ function getProgressKey(user) {
     return user?.email ? `${challengeProgressKey}:${user.email.trim().toLowerCase()}` : null;
 }
 
+function normalizeCompletedQuestions(completed, questionCount) {
+    if (!Array.isArray(completed)) return [];
+    const indexes = [...new Set(completed.map(Number).filter(index => Number.isInteger(index)))];
+    const isLegacyOneBased = indexes.length > 0
+        && !indexes.includes(0)
+        && indexes.every(index => index >= 1 && index <= questionCount);
+    return indexes
+        .map(index => isLegacyOneBased ? index - 1 : index)
+        .filter(index => index >= 0 && index < questionCount)
+        .sort((first, second) => first - second);
+}
+
 function loadProgress() {
     const user = JSON.parse(localStorage.getItem(challengeSessionKey) || sessionStorage.getItem(challengeSessionKey) || 'null');
     const key = getProgressKey(user);
@@ -25,6 +37,9 @@ function loadProgress() {
         progress = { completedQuestions: {} };
     }
 
+    for (const [id, lesson] of Object.entries(lessonsData)) {
+        progress.completedQuestions[id] = normalizeCompletedQuestions(progress.completedQuestions[id], lesson.challenges.length);
+    }
     return true;
 }
 
@@ -35,13 +50,13 @@ function saveProgress() {
 }
 
 function completedQuestionIndexes() {
-    return progress.completedQuestions[String(lessonId)] || [];
+    return normalizeCompletedQuestions(progress.completedQuestions[String(lessonId)], lessonsData[lessonId].challenges.length);
 }
 
 function completedLessonCount() {
     let count = 0;
     for (const id of Object.keys(lessonsData)) {
-        const completed = progress.completedQuestions[id] || [];
+        const completed = normalizeCompletedQuestions(progress.completedQuestions[id], lessonsData[id].challenges.length);
         if (completed.length < lessonsData[id].challenges.length) break;
         count++;
     }

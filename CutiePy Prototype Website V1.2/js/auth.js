@@ -24,12 +24,28 @@ function getActiveProgressKey() {
     return email ? `${progressStorageKey}:${email}` : null;
 }
 
+function normalizeCompletedQuestions(completed, questionCount) {
+    if (!Array.isArray(completed)) return [];
+    const indexes = [...new Set(completed.map(Number).filter(index => Number.isInteger(index)))];
+    const isLegacyOneBased = indexes.length > 0
+        && !indexes.includes(0)
+        && indexes.every(index => index >= 1 && index <= questionCount);
+    return indexes
+        .map(index => isLegacyOneBased ? index - 1 : index)
+        .filter(index => index >= 0 && index < questionCount)
+        .sort((first, second) => first - second);
+}
+
 function getActiveProgress() {
     const key = getActiveProgressKey();
     if (!key) return { completedQuestions: {} };
     try {
         const progress = JSON.parse(localStorage.getItem(key) || '{"completedQuestions":{}}');
-        return progress && typeof progress.completedQuestions === 'object' ? progress : { completedQuestions: {} };
+        if (!progress || typeof progress.completedQuestions !== 'object') return { completedQuestions: {} };
+        for (const [id, lesson] of Object.entries(lessonsData)) {
+            progress.completedQuestions[id] = normalizeCompletedQuestions(progress.completedQuestions[id], lesson.challenges.length);
+        }
+        return progress;
     } catch {
         return { completedQuestions: {} };
     }
@@ -43,7 +59,7 @@ function saveActiveProgress(progress) {
 function getCompletedLessonCount(progress = getActiveProgress()) {
     let count = 0;
     for (const id of Object.keys(lessonsData)) {
-        const completed = progress.completedQuestions[id] || [];
+        const completed = normalizeCompletedQuestions(progress.completedQuestions[id], lessonsData[id].challenges.length);
         if (completed.length < lessonsData[id].challenges.length) break;
         count++;
     }

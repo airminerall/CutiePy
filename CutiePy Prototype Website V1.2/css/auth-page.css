@@ -367,3 +367,63 @@ input[type="password"]:focus {
     .auth-logo  { width: 66px; height: 66px; font-size: 18px; border-radius: 18px; }
     h1          { font-size: 22px; }
 }
+
+/* CutiePy Chiikawa auth presentation. */
+.auth-page {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: linear-gradient(155deg, var(--color-soft-blue, #dff3fb) 0%, var(--color-white, #ffffff) 68%);
+}
+
+.auth-panel {
+    position: relative;
+    z-index: 2;
+    border: 1px solid rgba(133, 105, 115, 0.14);
+    border-radius: 26px;
+    box-shadow: 0 18px 42px rgba(105, 135, 150, 0.15), 0 3px 0 rgba(255, 255, 255, 0.84) inset;
+}
+
+.auth-brand {
+    color: var(--color-ink, #594b52);
+    font-family: 'Nunito', sans-serif;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 0;
+}
+
+.auth-logo {
+    background: var(--color-soft-pink, #fbe5ed) url('../assets/chikawa.png') center / 78px auto no-repeat;
+    box-shadow: 0 8px 20px rgba(199, 139, 161, 0.22), inset 0 0 0 3px var(--color-white, #ffffff);
+    color: transparent;
+}
+
+.auth-tabs { background: var(--color-soft-blue, #dff3fb); border-radius: 14px; }
+.auth-tab.is-active { box-shadow: 0 2px 7px rgba(105, 135, 150, 0.14); }
+.auth-submit, .auth-choice-primary { background: #75b7d0; box-shadow: 0 5px 14px rgba(105, 165, 191, 0.28); }
+.auth-submit:hover, .auth-choice-primary:hover { background: #5ca7c3; box-shadow: 0 8px 20px rgba(105, 165, 191, 0.3); }
+.auth-choice-secondary:hover { background: var(--color-soft-yellow, #fff3c9); border-color: #e5c878; }
+
+.auth-mascot {
+    position: fixed;
+    z-index: 1;
+    display: block;
+    width: clamp(84px, 12vw, 150px);
+    height: auto;
+    opacity: 0.2;
+    pointer-events: none;
+    user-select: none;
+}
+
+.auth-mascot--bear { top: 11%; left: 6%; transform: rotate(-8deg); }
+.auth-mascot--cat { right: 5%; bottom: 8%; transform: rotate(6deg); }
+.auth-mascot--rabbit { top: 16%; right: 8%; transform: rotate(4deg); }
+
+@media (max-width: 640px) {
+    .auth-page { padding-top: 92px; }
+    .auth-panel { border-radius: 22px; }
+    .auth-mascot { width: 78px; opacity: 0.14; }
+    .auth-mascot--bear { top: 10%; left: -16px; }
+    .auth-mascot--cat { right: -22px; bottom: 4%; }
+    .auth-mascot--rabbit { top: auto; right: 4%; bottom: 10%; }
+}
